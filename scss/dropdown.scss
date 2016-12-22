@@ -77,7 +77,7 @@ transition: .4s cubic-bezier(.19,1,.22,1);
 	}
 	.back_face {
 		z-index:2;
-		position:relative;
+		position:absolute;
 		padding:0 20px;
 		@include transition();
 		transform:translateY(20px);
@@ -107,6 +107,7 @@ transition: .4s cubic-bezier(.19,1,.22,1);
 
 	}
 	&.animate {
+		z-index:3;
 		height:100%!important;
 		.front_face {
 			.icon {
