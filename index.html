@@ -9,7 +9,11 @@
 	<script type="text/javascript" src="dropdown.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('select').dropdown()
+			$('select').dropdown({
+				background: "transparent",
+				scheme: "light"
+			})
+
 		})
 		
 	</script>
@@ -18,12 +22,18 @@
 <body>
 	<div class="row">
 	<div id = "content">
-	<select data-placeholder="Select an option">
-					<option value="1">Option 1</option>
-					<option value="2">Option 2</option>
-					<option value="3">Option 2</option>
-				</select>
-		
+		<select data-callback="hello" data-placeholder="Select an option">
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+			<option value="3">Option 3</option>
+		</select>
+		<div style="float:left; width:100%; margin-top:40px">
+		<select data-callback="hello" data-placeholder="Select an option">
+			<option value="1">Option 1</option>
+			<option value="2">Option 2</option>
+			<option value="3">Option 3</option>
+		</select>
+		</div>
 	</div>
 	</div>
 </body>
