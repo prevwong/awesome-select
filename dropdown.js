@@ -1,6 +1,18 @@
 dropdown_count = 0;
 (function ( $ ) {
 
+	$(document).mouseup(function (e)
+		{
+		    var dropdown = $(".dropdown");
+
+		    if (!dropdown.is(e.target) // if the target of the click isn't the container...
+		        && dropdown.has(e.target).length === 0) // ... nor a descendant of the container
+		    {
+		        deanimate()
+		    }
+		});
+		
+
 	$.fn.dropdown = function(options){
 		var element = $(this);
 		var opts = $.extend({}, $.fn.dropdown.defaults, options)
@@ -33,8 +45,9 @@ dropdown_count = 0;
 
 	$.fn.dropdown.defaults = {
 		background: "#e5e5e5",
-		onOpen_background: "#fff",
+		active_background: "#fff",
 		placeholder_color: "#000",
+		placeholder_active_color: "#000",
 		link_color: "#000"
 	}
 
@@ -49,8 +62,9 @@ dropdown_count = 0;
 		var options_html = '';
 
 		var background = opts["background"]
-		var onOpen_background = opts["onOpen_background"]
+		var active_background = opts["active_background"]
 		var placeholder_color = opts["placeholder_color"]
+		var placeholder_active_color = opts["placeholder_active_color"]
 		var link_color = opts["link_color"]
 
 		options.each(function(){
@@ -73,20 +87,18 @@ dropdown_count = 0;
 
 
 
-		
-
-		var dropdown_html = '<div id="euler_'+ id_html +'" data-select="'+ id_html +'" class = "'+ classes +'"><div class = "bg"></div>';
+		var dropdown_html = '<div id="euler_'+ id_html +'" data-select="'+ id_html +'" class = "'+ classes +'"><div style="background:'+ active_background +'" class = "bg"></div>';
 			dropdown_html += '<div class = "front_face">'
-				dropdown_html += '<div class = "bg"></div>'
-				dropdown_html += '<div class = "content">'
+				dropdown_html += '<div style="background:'+ background +'" class = "bg"></div>'
+				dropdown_html += '<div data-inactive-color="'+ placeholder_active_color +'" style="color:'+ placeholder_color +'" class = "content">'
 					if ( selected !== false ) {
 						dropdown_html += '<span class="current_value">'+ selected +'</span>';
 					}
 					dropdown_html += '<span class = "placeholder">'+ placeholder +'</span>'
-					dropdown_html += '<i class = "icon">'+ icon() +'</i>'
+					dropdown_html += '<i class = "icon">'+ icon(placeholder_color) +'</i>'
 				dropdown_html += '</div>'
 			dropdown_html += '</div>';
-			dropdown_html += '<div class = "back_face"><ul>'
+			dropdown_html += '<div class = "back_face"><ul style="color:'+ link_color +'">'
 				dropdown_html += options_html
 			dropdown_html += '</ul></div>';
 		dropdown_html += '</div>';
@@ -103,12 +115,14 @@ dropdown_count = 0;
 			deanimate($('.dropdown').not(element))
 			var timeout = 600
 		} else { 
-			var timeout = 10
+			var timeout = 100
 		}
 
 		setTimeout(function(){
-		setTimeout(function(){
 			var back_face = element.find('.back_face')
+			back_face.show()
+
+			
 			var bg = element.find('> .bg')
 
 			bg.css({
@@ -118,16 +132,18 @@ dropdown_count = 0;
 				"margin-top" : $(element).outerHeight()
 			})
 			
-
+			switchPlaceholderColor(element)
 			element.addClass('placeholder_animate')
 			setTimeout(function(){
+				if ( back_face.outerHeight() == 200 ) {
+					back_face.addClass('overflow')
+				}
 				element.addClass('placeholder_animate2')
 				element.addClass('animate')
 				element.addClass('animate2')
 				
 			}, 100)
 		}, timeout)
-		}, 200)
 	}
 
 	function deanimate(dropdowns){
@@ -136,21 +152,37 @@ dropdown_count = 0;
 		} else {
 			var dropdown = dropdowns
 		}
-		setTimeout(function(){
-			dropdown.removeClass('animate2')
-			setTimeout(function(){
-				dropdown.removeClass('animate')
-				dropdown.children(".bg").css({
-					"height" : 0
-				})
-				dropdown.removeClass('placeholder_animate2')
+			$(dropdown).each(function(){
+				var element = $(this);
+				if ( element.hasClass('animate2') ) { 
 				setTimeout(function(){
-					dropdown.removeClass('placeholder_animate')
-				},100)
-			}, 200)
-		}, 400)
+					element.removeClass('animate2')
+					setTimeout(function(){
+						element.find('.back_face').hide()
+
+						element.removeClass('animate')
+						switchPlaceholderColor(element)
+						element.children(".bg").css({
+							"height" : 0
+						})
+						element.removeClass('placeholder_animate2')
+						setTimeout(function(){
+							element.removeClass('placeholder_animate')
+						},100)
+					}, 200)
+				}, 400)
+				}
+			})
 	}
 
+	function switchPlaceholderColor(element) {
+		var placeholder_inactive_color = element.find('.front_face .content').attr('data-inactive-color')
+		var placeholder_normal_color = element.find('.front_face .content').css('color')
+		element.find('.front_face .content').attr('data-inactive-color', placeholder_normal_color)
+		element.find('.front_face .content').css('color', placeholder_inactive_color)
+		element.find('.front_face .icon svg').css('fill', placeholder_inactive_color)
+						
+	}
 	function setValue(euler_dropdown, value_index){
 		var id = euler_dropdown.attr('data-select')
 		var select = document.getElementById(id);
@@ -170,8 +202,8 @@ dropdown_count = 0;
 		
 	}
 
-	function icon(){
-		return '<svg version="1.1" id="Chevron_thin_down" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve"><path d="M17.418,6.109c0.272-0.268,0.709-0.268,0.979,0c0.27,0.268,0.271,0.701,0,0.969l-7.908,7.83c-0.27,0.268-0.707,0.268-0.979,0l-7.908-7.83c-0.27-0.268-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.979,0L10,13.25L17.418,6.109z"/></svg>';
+	function icon(color){
+		return '<svg style="fill:'+ color +'" version="1.1" id="Chevron_thin_down" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve"><path d="M17.418,6.109c0.272-0.268,0.709-0.268,0.979,0c0.27,0.268,0.271,0.701,0,0.969l-7.908,7.83c-0.27,0.268-0.707,0.268-0.979,0l-7.908-7.83c-0.27-0.268-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.979,0L10,13.25L17.418,6.109z"/></svg>';
 	}
 
 	function change(elem){
