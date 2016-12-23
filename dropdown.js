@@ -18,6 +18,7 @@ dropdown_count = 0;
 		var opts = $.extend({}, $.fn.dropdown.defaults, options)
 		
 		element.each(function(){
+			dropdown_count += 1
 			build($(this), opts);
 		})
 		
@@ -47,7 +48,7 @@ dropdown_count = 0;
 		active_background: "#fff",
 		placeholder_color: "#000",
 		placeholder_active_color: "#000",
-		link_color: "#000",
+		option_color: "#000",
 		vertical_padding: "20px",
 		horizontal_padding: "40px"
 	}
@@ -69,7 +70,7 @@ dropdown_count = 0;
 		var active_background = opts["active_background"]
 		var placeholder_color = opts["placeholder_color"]
 		var placeholder_active_color = opts["placeholder_active_color"]
-		var link_color = opts["link_color"]
+		var option_color = opts["option_color"]
 		var vertical_padding = opts["vertical_padding"]
 		var horizontal_padding = opts["horizontal_padding"]
 
@@ -104,7 +105,7 @@ dropdown_count = 0;
 					dropdown_html += '<i class = "icon">'+ icon(placeholder_color) +'</i>'
 				dropdown_html += '</div>'
 			dropdown_html += '</div>';
-			dropdown_html += '<div style="padding:'+ vertical_padding +' '+ horizontal_padding +'" class = "back_face"><ul style="color:'+ link_color +'">'
+			dropdown_html += '<div style="padding:'+ vertical_padding +' '+ horizontal_padding +'" class = "back_face"><ul style="color:'+ option_color +'">'
 				dropdown_html += options_html
 			dropdown_html += '</ul></div>';
 		dropdown_html += '</div>';
@@ -225,6 +226,7 @@ dropdown_count = 0;
 function hello(value){
 	console.log("hello world! the selected value is " + value)
 }
+
 
 $(document).ready(function(){
 	$('body').on('click', '.dropdown', function(){
