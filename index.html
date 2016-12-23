@@ -13,10 +13,12 @@
 
 			$('select.dark').dropdown({
 				background: "#0f37a9",
-				active_background:"#fff",
+				active_background:"rgb(149, 211, 255)",
 				placeholder_color: "#97bce0",
 				placeholder_active_color: "#0f37a9",
-				link_color:"#000"
+				link_color:"#405463",
+				vertical_padding: "15px",
+				horizontal_padding: "20px"
 			})
 
 
@@ -28,6 +30,7 @@
 <body>
 	<div class="row">
 	<div id = "content">
+		<h2 class = "title">Awesome Dropdown <span class = "version">v0.0.1</span></h2>
 		<div class = "divider">
 		<select class="light" data-callback="hello" data-placeholder="Select an option">
 			<option value="1">Option 1</option>

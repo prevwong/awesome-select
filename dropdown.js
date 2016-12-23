@@ -23,6 +23,7 @@ dropdown_count = 0;
 		
 
 		this.on('click', function(){
+
 			animate(getDropdownElement($(this)));
 		})
 
@@ -46,7 +47,9 @@ dropdown_count = 0;
 		active_background: "#fff",
 		placeholder_color: "#000",
 		placeholder_active_color: "#000",
-		link_color: "#000"
+		link_color: "#000",
+		vertical_padding: "20px",
+		horizontal_padding: "40px"
 	}
 
 
@@ -67,6 +70,8 @@ dropdown_count = 0;
 		var placeholder_color = opts["placeholder_color"]
 		var placeholder_active_color = opts["placeholder_active_color"]
 		var link_color = opts["link_color"]
+		var vertical_padding = opts["vertical_padding"]
+		var horizontal_padding = opts["horizontal_padding"]
 
 		options.each(function(){
 			if ( $(this).attr('selected') == "selected") {
@@ -89,7 +94,7 @@ dropdown_count = 0;
 
 
 		var dropdown_html = '<div id="euler_'+ id_html +'" data-select="'+ id_html +'" class = "'+ classes +'"><div style="background:'+ active_background +'" class = "bg"></div>';
-			dropdown_html += '<div class = "front_face">'
+			dropdown_html += '<div style="padding:'+ vertical_padding +' '+ horizontal_padding +'" class = "front_face">'
 				dropdown_html += '<div style="background:'+ background +'" class = "bg"></div>'
 				dropdown_html += '<div data-inactive-color="'+ placeholder_active_color +'" style="color:'+ placeholder_color +'" class = "content">'
 					if ( selected !== false ) {
@@ -99,7 +104,7 @@ dropdown_count = 0;
 					dropdown_html += '<i class = "icon">'+ icon(placeholder_color) +'</i>'
 				dropdown_html += '</div>'
 			dropdown_html += '</div>';
-			dropdown_html += '<div class = "back_face"><ul style="color:'+ link_color +'">'
+			dropdown_html += '<div style="padding:'+ vertical_padding +' '+ horizontal_padding +'" class = "back_face"><ul style="color:'+ link_color +'">'
 				dropdown_html += options_html
 			dropdown_html += '</ul></div>';
 		dropdown_html += '</div>';
@@ -112,13 +117,15 @@ dropdown_count = 0;
 	}
 
 	function animate(element){
+		if ( element.hasClass('animating') == false ) {
+			element.addClass('animating')
 		if ( $('.dropdown.animate').length > 0 ) { 
 			deanimate($('.dropdown').not(element))
 			var timeout = 600
 		} else { 
 			var timeout = 100
 		}
-
+		
 		setTimeout(function(){
 			var back_face = element.find('.back_face')
 			back_face.show()
@@ -133,18 +140,21 @@ dropdown_count = 0;
 				"margin-top" : $(element).outerHeight()
 			})
 			
-			switchPlaceholderColor(element)
+			
 			element.addClass('placeholder_animate')
 			setTimeout(function(){
+				switchPlaceholderColor(element)
 				if ( back_face.outerHeight() == 200 ) {
 					back_face.addClass('overflow')
 				}
 				element.addClass('placeholder_animate2')
 				element.addClass('animate')
 				element.addClass('animate2')
+				element.removeClass('animating')
 				
 			}, 100)
 		}, timeout)
+		}
 	}
 
 	function deanimate(dropdowns){
@@ -155,7 +165,7 @@ dropdown_count = 0;
 		}
 			$(dropdown).each(function(){
 				var element = $(this);
-				if ( element.hasClass('animate2') ) { 
+				if ( element.hasClass('animate') ) { 
 				setTimeout(function(){
 					element.removeClass('animate2')
 					setTimeout(function(){
@@ -218,7 +228,7 @@ function hello(value){
 
 $(document).ready(function(){
 	$('body').on('click', '.dropdown', function(){
-		if ( $(this).hasClass('animate2') == false )  {
+		if ( $(this).hasClass('animate') == false )  {
 			$('select#' + $(this).attr('id').replace('euler_', '')).trigger('click')
 		}
 	
