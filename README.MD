@@ -10,7 +10,7 @@ Documentation and Demos are at [here](https://prevwong.github.io/awesome-select/
 
 Release | Description
 ------------ | -------------
-v0.0.1 beta | Initial beta release
+v0.1.0 beta | Initial beta release
 
 ## Credits
 
