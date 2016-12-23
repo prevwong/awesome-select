@@ -11,11 +11,10 @@ transition: .4s cubic-bezier(.19,1,.22,1);
 }
 
 
-.dropdown {
+.awselect {
 	float:left;
 	width:100%;
 	position:relative;
-	font-family:Inconsolata;
 	
 	@include transition();
 	> .bg {

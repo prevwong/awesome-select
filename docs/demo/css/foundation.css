@@ -598,11 +598,12 @@ abbr {
 
 code {
   font-family: Consolas, "Liberation Mono", Courier, monospace;
-  font-weight: normal;
-  color: #0a0a0a;
-  background-color: #e6e6e6;
-  border: 1px solid #cacaca;
-  padding: 0.125rem 0.3125rem 0.0625rem; }
+  /* font-weight: normal; */
+  /* color: #0a0a0a; */
+  /* background-color: #e6e6e6; */
+  /* border: 1px solid #cacaca; */
+  /* padding: 0.125rem 0.3125rem 0.0625rem; */
+  }
 
 kbd {
   padding: 0.125rem 0.25rem 0;

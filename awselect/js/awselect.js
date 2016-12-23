@@ -1,31 +1,31 @@
-dropdown_count = 0;
+awselect_count = 0;
 (function ( $ ) {
 
 	$(document).mouseup(function (e)
 		{
-		    var dropdown = $(".dropdown");
+		    var awselect = $(".awselect");
 
-		    if (!dropdown.is(e.target) // if the target of the click isn't the container...
-		        && dropdown.has(e.target).length === 0) // ... nor a descendant of the container
+		    if (!awselect.is(e.target) // if the target of the click isn't the container...
+		        && awselect.has(e.target).length === 0) // ... nor a descendant of the container
 		    {
 		        deanimate()
 		    }
 		});
 		
 
-	$.fn.dropdown = function(options){
+	$.fn.awselect = function(options){
 		var element = $(this);
-		var opts = $.extend({}, $.fn.dropdown.defaults, options)
+		var opts = $.extend({}, $.fn.awselect.defaults, options)
 		
 		element.each(function(){
-			dropdown_count += 1
+			awselect_count += 1
 			build($(this), opts);
 		})
 		
 
 		this.on('click', function(){
 
-			animate(getDropdownElement($(this)));
+			animate(getawselectElement($(this)));
 		})
 
 		this.on('change', function(){
@@ -43,19 +43,19 @@ dropdown_count = 0;
 		}
 	};
 
-	$.fn.dropdown.defaults = {
+	$.fn.awselect.defaults = {
 		background: "#e5e5e5",
 		active_background: "#fff",
 		placeholder_color: "#000",
 		placeholder_active_color: "#000",
 		option_color: "#000",
-		vertical_padding: "20px",
+		vertical_padding: "15px",
 		horizontal_padding: "40px"
 	}
 
 
-	function getDropdownElement(select){
-		return $('.dropdown[data-select="' + select.attr('id') + '"]')
+	function getawselectElement(select){
+		return $('.awselect[data-select="' + select.attr('id') + '"]')
 	}
 
 	function build(element, opts){
@@ -63,7 +63,7 @@ dropdown_count = 0;
 		var id = element.attr('id')
 		var options = element.children('option')
 		var selected = false;
-		var classes = "dropdown";
+		var classes = "awselect";
 		var options_html = '';
 
 		var background = opts["background"]
@@ -88,29 +88,29 @@ dropdown_count = 0;
 		if (typeof id !== typeof undefined && id !== false) {
 			id_html = id
 		} else {
-			id_html = 'dropdown_' + dropdown_count;
+			id_html = 'awselect_' + awselect_count;
 			$(element).attr('id', id_html)
 		}
 
 
 
-		var dropdown_html = '<div id="euler_'+ id_html +'" data-select="'+ id_html +'" class = "'+ classes +'"><div style="background:'+ active_background +'" class = "bg"></div>';
-			dropdown_html += '<div style="padding:'+ vertical_padding +' '+ horizontal_padding +'" class = "front_face">'
-				dropdown_html += '<div style="background:'+ background +'" class = "bg"></div>'
-				dropdown_html += '<div data-inactive-color="'+ placeholder_active_color +'" style="color:'+ placeholder_color +'" class = "content">'
+		var awselect_html = '<div id="euler_'+ id_html +'" data-select="'+ id_html +'" class = "'+ classes +'"><div style="background:'+ active_background +'" class = "bg"></div>';
+			awselect_html += '<div style="padding:'+ vertical_padding +' '+ horizontal_padding +'" class = "front_face">'
+				awselect_html += '<div style="background:'+ background +'" class = "bg"></div>'
+				awselect_html += '<div data-inactive-color="'+ placeholder_active_color +'" style="color:'+ placeholder_color +'" class = "content">'
 					if ( selected !== false ) {
-						dropdown_html += '<span class="current_value">'+ selected +'</span>';
+						awselect_html += '<span class="current_value">'+ selected +'</span>';
 					}
-					dropdown_html += '<span class = "placeholder">'+ placeholder +'</span>'
-					dropdown_html += '<i class = "icon">'+ icon(placeholder_color) +'</i>'
-				dropdown_html += '</div>'
-			dropdown_html += '</div>';
-			dropdown_html += '<div style="padding:'+ vertical_padding +' '+ horizontal_padding +'" class = "back_face"><ul style="color:'+ option_color +'">'
-				dropdown_html += options_html
-			dropdown_html += '</ul></div>';
-		dropdown_html += '</div>';
+					awselect_html += '<span class = "placeholder">'+ placeholder +'</span>'
+					awselect_html += '<i class = "icon">'+ icon(placeholder_color) +'</i>'
+				awselect_html += '</div>'
+			awselect_html += '</div>';
+			awselect_html += '<div style="padding:'+ vertical_padding +' '+ horizontal_padding +'" class = "back_face"><ul style="color:'+ option_color +'">'
+				awselect_html += options_html
+			awselect_html += '</ul></div>';
+		awselect_html += '</div>';
 
-		$(dropdown_html).insertAfter(element)
+		$(awselect_html).insertAfter(element)
 		//$('#euler_' + id_html).css("height", $('#euler_' + id_html).outerHeight() - $('#euler_' + id_html).find('.back_face').outerHeight() )
 		element.hide()
 
@@ -120,8 +120,8 @@ dropdown_count = 0;
 	function animate(element){
 		if ( element.hasClass('animating') == false ) {
 			element.addClass('animating')
-		if ( $('.dropdown.animate').length > 0 ) { 
-			deanimate($('.dropdown').not(element))
+		if ( $('.awselect.animate').length > 0 ) { 
+			deanimate($('.awselect').not(element))
 			var timeout = 600
 		} else { 
 			var timeout = 100
@@ -158,13 +158,13 @@ dropdown_count = 0;
 		}
 	}
 
-	function deanimate(dropdowns){
-		if (dropdowns == null ) {
-			var dropdown = $('.dropdown')
+	function deanimate(awselects){
+		if (awselects == null ) {
+			var awselect = $('.awselect')
 		} else {
-			var dropdown = dropdowns
+			var awselect = awselects
 		}
-			$(dropdown).each(function(){
+			$(awselect).each(function(){
 				var element = $(this);
 				if ( element.hasClass('animate') ) { 
 				setTimeout(function(){
@@ -197,13 +197,13 @@ dropdown_count = 0;
 	}
 	function setValue(select){
 		var val = $(select).val()
-		var euler_dropdown = getDropdownElement($(select))
+		var euler_awselect = getawselectElement($(select))
 		var option_value = $(select).children('option[value="'+ val +'"]').eq(0)
 		var callback = $(select).attr('data-callback')
 
-		$(euler_dropdown).find('.current_value').remove()
-		$(euler_dropdown).find('.front_face .content').prepend('<span class = "current_value">'+ option_value.text() + '</span>')
-		$(euler_dropdown).addClass('hasValue')
+		$(euler_awselect).find('.current_value').remove()
+		$(euler_awselect).find('.front_face .content').prepend('<span class = "current_value">'+ option_value.text() + '</span>')
+		$(euler_awselect).addClass('hasValue')
 
 		if (typeof callback !== typeof undefined && callback !== false) {
 			window[callback](option_value.val())
@@ -229,17 +229,17 @@ function hello(value){
 
 
 $(document).ready(function(){
-	$('body').on('click', '.dropdown', function(){
+	$('body').on('click', '.awselect', function(){
 		if ( $(this).hasClass('animate') == false )  {
 			$('select#' + $(this).attr('id').replace('euler_', '')).trigger('click')
 		}
 	
 	})
-	$('body').on('click', '.dropdown ul li a', function(){
-		var dropdown = $(this).parents('.dropdown')
+	$('body').on('click', '.awselect ul li a', function(){
+		var awselect = $(this).parents('.awselect')
 		var value_index = $(this).parent('li').index()
 		
-		var id = dropdown.attr('data-select')
+		var id = awselect.attr('data-select')
 		var select = $('select#' + id)
 		var option_value = $(select).children('option').eq(value_index)
 		var callback = $(select).attr('data-callback')
