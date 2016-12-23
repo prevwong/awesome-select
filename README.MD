@@ -1,8 +1,4 @@
-# Awesome-select!
-Transforms your standard boring HTML <select> into a minimalistic beauty. 
+## Awesome-Select!
+### Replace that boring looking html <select> with a minimalistic and beautiful one with animations inspired by Material Design
 
-Inspired by the animations of Material Design. 
 
-[Documentations and Demos]: https://prevwong.github.io/awesome-select/
-
-Enjoy! 
