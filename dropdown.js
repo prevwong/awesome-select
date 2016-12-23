@@ -21,19 +21,17 @@ dropdown_count = 0;
 			build($(this), opts);
 		})
 		
-		
-		$('body').on('click', '.dropdown', function(){
-			//alert(3)
-			if ( $(this).hasClass('animate') == false ) {
-				animate($(this))
-			}
+
+		this.on('click', function(){
+			animate(getDropdownElement($(this)));
 		})
 
-		$('body').on('click', '.dropdown ul li a', function(){
-			setValue($(this).parents('.dropdown'), $(this).parent('li').index())
+		this.on('change', function(){
+			setValue(this);
 		})
 
-		
+		console.log(element.attr('id'))
+	
 
 		return {
 
@@ -52,6 +50,9 @@ dropdown_count = 0;
 	}
 
 
+	function getDropdownElement(select){
+		return $('.dropdown[data-select="' + select.attr('id') + '"]')
+	}
 
 	function build(element, opts){
 		var placeholder = element.attr('data-placeholder')
@@ -183,12 +184,12 @@ dropdown_count = 0;
 		element.find('.front_face .icon svg').css('fill', placeholder_inactive_color)
 						
 	}
-	function setValue(euler_dropdown, value_index){
-		var id = euler_dropdown.attr('data-select')
-		var select = document.getElementById(id);
-		var option_value = $(select).children('option').eq(value_index)
+	function setValue(select){
+		var val = $(select).val()
+		var euler_dropdown = getDropdownElement($(select))
+		var option_value = $(select).children('option[value="'+ val +'"]').eq(0)
 		var callback = $(select).attr('data-callback')
-		$(select).val(option_value.val())
+
 		$(euler_dropdown).find('.current_value').remove()
 		$(euler_dropdown).find('.front_face .content').prepend('<span class = "current_value">'+ option_value.text() + '</span>')
 		$(euler_dropdown).addClass('hasValue')
@@ -198,7 +199,7 @@ dropdown_count = 0;
 		}
 		setTimeout(function(){
 			deanimate()
-		}, 100)
+		}, 200)
 		
 	}
 
@@ -214,3 +215,23 @@ dropdown_count = 0;
 function hello(value){
 	console.log("hello world! the selected value is " + value)
 }
+
+$(document).ready(function(){
+	$('body').on('click', '.dropdown', function(){
+		if ( $(this).hasClass('animate2') == false )  {
+			$('select#' + $(this).attr('id').replace('euler_', '')).trigger('click')
+		}
+	
+	})
+	$('body').on('click', '.dropdown ul li a', function(){
+		var dropdown = $(this).parents('.dropdown')
+		var value_index = $(this).parent('li').index()
+		
+		var id = dropdown.attr('data-select')
+		var select = $('select#' + id)
+		var option_value = $(select).children('option').eq(value_index)
+		var callback = $(select).attr('data-callback')
+		$(select).val(option_value.val())
+		$(select).trigger('change')
+	})
+})

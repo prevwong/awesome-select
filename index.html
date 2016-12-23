@@ -9,11 +9,13 @@
 	<script type="text/javascript" src="dropdown.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('select').dropdown({
-				background: "#000",
+			$('select.light').dropdown()
+
+			$('select.dark').dropdown({
+				background: "#0f37a9",
 				active_background:"#fff",
-				placeholder_color: "#fff",
-				placeholder_active_color: "green",
+				placeholder_color: "#97bce0",
+				placeholder_active_color: "#0f37a9",
 				link_color:"#000"
 			})
 
@@ -26,7 +28,8 @@
 <body>
 	<div class="row">
 	<div id = "content">
-		<select data-callback="hello" data-placeholder="Select an option">
+		<div class = "divider">
+		<select class="light" data-callback="hello" data-placeholder="Select an option">
 			<option value="1">Option 1</option>
 			<option value="2">Option 2</option>
 			<option value="3">Option 3</option>
@@ -43,11 +46,14 @@
 			<option value="2">Option 2</option>
 			<option value="3">Option 3</option>
 		</select>
-		<select id = "hello_dropdown" data-callback="hello" data-placeholder="Select an option">
+		</div>
+		<div class = "divider">
+		<select class = "dark" id = "hello_dropdown" data-callback="hello" data-placeholder="Select an option">
 			<option value="1">Hello</option>
 			<option value="2">Option 2</option>
 			<option value="3">Option 3</option>
 		</select>
+		</div>
 	</div>
 	</div>
 </body>
