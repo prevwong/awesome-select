@@ -1,9 +1,6 @@
-## Material Dropdown
+# Awesome-select!
 Transforms your standard boring HTML <select> into a minimalistic beauty. 
-Inspired by the animations of the actual dropdown in Material Design. 
+Inspired by the animations of Material Design. 
+Live demos & Documentation: http://prevwong.github.io/awesome-select/
 
-| Options       | Values       |
-| ------------- |:-------------:| 
-| background      | Sets the inital background of the dropdown | 
-| col 2 is      | centered      |  
-| zebra stripes | are neat      |    
+Enjoy! 
