@@ -7,7 +7,7 @@ Github: https://github.com/prevwong/awesome-select/
 
 **/
 
-awselect_count = 0;
+awselect_count = 0; // used for generating sequential ID for <select> that does not have ID
 
 (function($) {
     $(document).mouseup(function(e) {
