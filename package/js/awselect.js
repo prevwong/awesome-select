@@ -1,3 +1,12 @@
+/**
+
+jQuery Awselect
+Developed by: Prev Wong
+Documentation: https://prevwong.github.io/awesome-select/
+Github: https://github.com/prevwong/awesome-select/
+
+**/
+
 awselect_count = 0;
 
 (function($) {
