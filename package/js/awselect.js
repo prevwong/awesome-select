@@ -64,7 +64,7 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
         var vertical_padding = opts["vertical_padding"];
         var horizontal_padding = opts["horizontal_padding"];
         options.each(function() {
-            if ($(this).attr("selected") == "selected") {
+            if (typeof $(this).attr("selected") !== typeof undefined && $(this).attr("selected") !== false) {
                 selected = $(this).text();
             }
             options_html += '<li><a style="padding: 0 '+ horizontal_padding +'">' + $(this).text() + '</a></li>';
