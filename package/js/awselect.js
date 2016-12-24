@@ -67,7 +67,7 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
             if ($(this).attr("selected") == "selected") {
                 selected = $(this).text();
             }
-            options_html += "<li><a>" + $(this).text() + "</a></li>";
+            options_html += '<li><a style="padding: 0 '+ horizontal_padding +'">' + $(this).text() + '</a></li>';
         });
         if (selected !== false) {
             classes += " hasValue";
@@ -89,7 +89,7 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
         awselect_html += '<i class = "icon">' + icon(placeholder_color) + "</i>";
         awselect_html += "</div>";
         awselect_html += "</div>";
-        awselect_html += '<div style="padding:' + vertical_padding + " " + horizontal_padding + '" class = "back_face"><ul style="color:' + option_color + '">';
+        awselect_html += '<div style="padding:' + vertical_padding + '" 0" class = "back_face"><ul style="color:' + option_color + '">';
         awselect_html += options_html;
         awselect_html += "</ul></div>";
         awselect_html += "</div>";

@@ -87,7 +87,7 @@ transition: .4s cubic-bezier(.19,1,.22,1);
 	.back_face {
 		z-index:2;
 		position:absolute;
-		padding:0 20px;
+		padding:0px;
 		@include transition();
 		transform:translateY(20px);
 		opacity:0;
@@ -111,6 +111,8 @@ transition: .4s cubic-bezier(.19,1,.22,1);
 				a {
 					color:inherit;
 					opacity:0.8;
+					float:left;
+					width:100%;
 					@include transition();
 					&:hover {
 						opacity:1;
