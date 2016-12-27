@@ -107,6 +107,7 @@ Github: https://github.com/prevwong/awesome-select/
           -o-transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
           transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1); }
           .awselect .back_face ul li a:hover {
+            background: rgba(0, 0, 0, 0.07);
             opacity: 1; }
   .awselect.animate {
     z-index: 3;

@@ -67,7 +67,7 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
             if (typeof $(this).attr("selected") !== typeof undefined && $(this).attr("selected") !== false) {
                 selected = $(this).text();
             }
-            options_html += '<li><a style="padding: 0 '+ horizontal_padding +'">' + $(this).text() + '</a></li>';
+            options_html += '<li><a style="padding: 2px '+ horizontal_padding +'">' + $(this).text() + '</a></li>';
         });
         if (selected !== false) {
             classes += " hasValue";
