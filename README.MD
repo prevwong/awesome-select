@@ -4,7 +4,7 @@ Transform that boring &lt;select&gt; tag into something beautiful and minimal, w
 
 ## Installation & Usage
 
-Documentation and Demos are at [here](https://prevwong.github.io/awesome-select/)
+Documentation and Demos are [here](https://prevwong.github.io/awesome-select/)
 
 ## History
 
