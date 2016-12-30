@@ -267,7 +267,7 @@
                             <li>
                                 <span class="step_name">Add the <span class = "code">data-callback</span> attribute followed by your callback function.</span>
                                 <pre><code class="language-html">&lt;select name="food_selector" data-callback="my_callback" data-placeholder="Select a food to eat" &gt;
-	...</code></pre>
+    ...</code></pre>
                             </li>
                             <li>
                                 <span class="step_name">The callback function should be placed outside <span class = "code">$(document).ready()</span>. The function can also access the <span class="code">value</span> that was chosen by the user.</span>
@@ -276,7 +276,7 @@
 })
 
 function my_callback(value){
-	alert("The value selected is " + value)
+    alert("The value selected is " + value)
 }</code></pre>
                             </li>
 
@@ -284,10 +284,42 @@ function my_callback(value){
                         <div class="output">
                             <span>Output</span>
                             <select class="normal" data-callback="my_callback" data-placeholder="Select something to eat">
-							<option value="pancakes">Pancakes</option>
-							<option value="tosai">Tosai</option>
-							<option value="roti_canai">Roti Canai</option>
-						</select>
+                            <option value="pancakes">Pancakes</option>
+                            <option value="tosai">Tosai</option>
+                            <option value="roti_canai">Roti Canai</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="sections" id="init">
+                    <h2>Mobile Animation</h2>
+                    <p>In attempt to make the animations to appear more immersive on smaller screens, awesome-select will animate slightly different on screens with width smaller than 800px. If you are not already on a mobile device, you can resize your browser to a width lesser or equal to 800px and test the dropdowns in the above examples to see the difference.</p>
+                    <div class="steps">
+                        <ol>
+                            <li>
+                                <span class="step_name">Add the <span class = "code">data-callback</span> attribute followed by your callback function.</span>
+                                <pre><code class="language-html">&lt;select name="food_selector" data-callback="my_callback" data-placeholder="Select a food to eat" &gt;
+    ...</code></pre>
+                            </li>
+                            <li>
+                                <span class="step_name">The callback function should be placed outside <span class = "code">$(document).ready()</span>. The function can also access the <span class="code">value</span> that was chosen by the user.</span>
+                                <pre><code class="language-javascript">$(document).ready(function(){
+   ...
+})
+
+function my_callback(value){
+    alert("The value selected is " + value)
+}</code></pre>
+                            </li>
+
+                        </ol>
+                        <div class="output">
+                            <span>Output</span>
+                            <select class="normal" data-callback="my_callback" data-placeholder="Select something to eat">
+                            <option value="pancakes">Pancakes</option>
+                            <option value="tosai">Tosai</option>
+                            <option value="roti_canai">Roti Canai</option>
+                        </select>
                         </div>
                     </div>
                 </div>
