@@ -6,10 +6,27 @@ Documentation: https://prevwong.github.io/awesome-select/
 Github: https://github.com/prevwong/awesome-select/
 
 **/
+.awselect_bg {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.8);
+  -webkit-transition: 0.2s ease-in;
+  -moz-transition: 0.2s ease-in;
+  -o-transition: 0.2s ease-in;
+  transition: 0.2s ease-in; }
+  .awselect_bg.animate {
+    opacity: 1; }
+
 .awselect {
   float: left;
   width: 100%;
   position: relative;
+  cursor: pointer;
   -webkit-transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
   -moz-transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
   -o-transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
@@ -110,8 +127,7 @@ Github: https://github.com/prevwong/awesome-select/
             background: rgba(0, 0, 0, 0.07);
             opacity: 1; }
   .awselect.animate {
-    z-index: 3;
-    height: 100% !important; }
+    z-index: 9999; }
     .awselect.animate .front_face .icon {
       transform: rotate(0deg) translateY(-50%); }
     .awselect.animate > .bg {
@@ -129,5 +145,35 @@ Github: https://github.com/prevwong/awesome-select/
   .awselect.placeholder_animate2 .front_face .placeholder {
     transform: translateY(0);
     opacity: 1; }
+  .awselect.transition_paused {
+    transition: none !important; }
+
+.aw_cursor_pointer {
+  float: left;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: #ddd;
+  overflow: hidden;
+  padding: 5px;
+  -webkit-transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  -moz-transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  -o-transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: scale(0.5); }
+  .aw_cursor_pointer .inner {
+    float: left;
+    width: 100%;
+    height: 0%;
+    background: #fff;
+    border-radius: 100%;
+    -webkit-transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    -moz-transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    -o-transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1); }
+  .aw_cursor_pointer.animate {
+    transform: scale(1); }
+    .aw_cursor_pointer.animate .inner {
+      height: 100%; }
 
 /*# sourceMappingURL=awselect.css.map */

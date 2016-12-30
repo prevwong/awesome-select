@@ -7,7 +7,8 @@ Github: https://github.com/prevwong/awesome-select/
 
 **/
 
-awselect_count = 0; // used for generating sequential ID for <select> that does not have ID
+var awselect_count = 0; // used for generating sequential ID for <select> that does not have ID
+var mobile_width = 800;
 
 (function($) {
     $(document).mouseup(function(e) {
@@ -24,12 +25,17 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
             awselect_count += 1;
             build($(this), opts);
         });
-        this.on("click", function() {
+        this.on("aw:animate", function() {
             animate(getawselectElement($(this)));
+            
         });
         this.on("change", function() {
             setValue(this);
         });
+        this.on("aw:deanimate", function() {
+           deanimate(getawselectElement($(this)))
+        });
+
         console.log(element.attr("id"));
         return {
             blue: function() {
@@ -78,7 +84,7 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
             id_html = "awselect_" + awselect_count;
             $(element).attr("id", id_html);
         }
-        var awselect_html = '<div id="euler_' + id_html + '" data-select="' + id_html + '" class = "' + classes + '"><div style="background:' + active_background + '" class = "bg"></div>';
+        var awselect_html = '<div id="awselect_' + id_html + '" data-select="' + id_html + '" class = "' + classes + '"><div style="background:' + active_background + '" class = "bg"></div>';
         awselect_html += '<div style="padding:' + vertical_padding + " " + horizontal_padding + '" class = "front_face">';
         awselect_html += '<div style="background:' + background + '" class = "bg"></div>';
         awselect_html += '<div data-inactive-color="' + placeholder_active_color + '" style="color:' + placeholder_color + '" class = "content">';
@@ -94,9 +100,9 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
         awselect_html += "</ul></div>";
         awselect_html += "</div>";
         $(awselect_html).insertAfter(element);
-        //$('#euler_' + id_html).css("height", $('#euler_' + id_html).outerHeight() - $('#euler_' + id_html).find('.back_face').outerHeight() )
         element.hide();
     }
+
     function animate(element) {
         if (element.hasClass("animating") == false) {
             element.addClass("animating");
@@ -105,6 +111,10 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
                 var timeout = 600;
             } else {
                 var timeout = 100;
+            }
+            if ($(window).width() < mobile_width ) {
+                mobile_animate(element);
+                timeout += 200
             }
             setTimeout(function() {
                 var back_face = element.find(".back_face");
@@ -116,12 +126,21 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
                 back_face.css({
                     "margin-top": $(element).outerHeight()
                 });
+                if ( $(window).width() < mobile_width ) {
+                        element.css({
+                            "top": parseInt(element.css('top')) - back_face.height()
+                        })
+                    }
                 element.addClass("placeholder_animate");
                 setTimeout(function() {
                     switchPlaceholderColor(element);
-                    if (back_face.outerHeight() == 200) {
-                        back_face.addClass("overflow");
-                    }
+                    setTimeout(function(){
+                        if (back_face.outerHeight() == 200) {
+                            back_face.addClass("overflow");
+                        }
+                    }, 200);
+                  
+                    
                     element.addClass("placeholder_animate2");
                     element.addClass("animate");
                     element.addClass("animate2");
@@ -130,6 +149,47 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
             }, timeout);
         }
     }
+
+    function mobile_animate(element) {
+        $(".awselect_bg").remove()
+        $('body').prepend('<div class = "awselect_bg"></div>')
+        setTimeout(function(){
+             $('.awselect_bg').addClass('animate')
+        }, 100)
+       
+       
+        var current_width = element.outerWidth()
+        var current_height = element.outerHeight()
+        var current_left = element.offset().left
+        var current_top = element.offset().top - $(window).scrollTop() 
+        element.attr('data-o-width', current_width)
+        element.attr('data-o-left', current_left)
+        element.attr('data-o-top', current_top)
+        element.addClass('transition_paused').css({
+            "width" : current_width,
+            "z-index": "9999"
+       })
+        setTimeout(function(){
+            $('<div class = "awselect_placebo" style="position:relative; width:'+ current_width +'px; height:'+ current_height +'px; float:left;ß"></div>').insertAfter(element)
+            element.css({
+                "position": "fixed",
+                "top" : current_top,
+                "left": current_left
+            })
+            element.removeClass('transition_paused')
+            setTimeout(function(){
+                element.css('width', $(window).outerWidth() - 40)
+                element.css({
+                    "top" : $(window).outerHeight() / 2 + element.outerHeight() / 2,
+                    "left" : 20
+                })
+                setTimeout(function(){
+                    animate(element)
+                 }, 100)
+            }, 100)
+        }, 50)
+    }
+
     function deanimate(awselects) {
         if (awselects == null) {
             var awselect = $(".awselect");
@@ -138,25 +198,58 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
         }
         $(awselect).each(function() {
             var element = $(this);
+            
             if (element.hasClass("animate")) {
-                //setTimeout(function() {
-                    element.removeClass("animate2");
-                    //setTimeout(function() {
-                        element.find(".back_face").hide();
-                        element.removeClass("animate");
-                        switchPlaceholderColor(element);
-                        element.children(".bg").css({
-                            height: 0
-                        });
-                        element.removeClass("placeholder_animate2");
-                        setTimeout(function() {
-                            element.removeClass("placeholder_animate");
-                        }, 100);
-                    //}, 0);
-                //}, 0);
+                setTimeout(function() {
+               
+                }, 300);
+                element.removeClass("animate2");
+                element.find(".back_face").hide();
+                element.find('.back_face').removeClass('overflow')
+                element.removeClass("animate");
+                switchPlaceholderColor(element);
+
+                element.children(".bg").css({
+                    height: 0
+                });
+                element.removeClass("placeholder_animate2");
+                setTimeout(function() {
+                    mobile_deanimate(element)
+                    element.removeClass("placeholder_animate");
+                }, 100);
             }
         });
     }
+    function mobile_deanimate(element){
+       
+        if ( element.siblings('.awselect_placebo').length > 0 ) {
+           
+
+            setTimeout(function(){
+                var original_width = element.attr('data-o-width')
+                var original_left = element.attr('data-o-left')
+                var original_top = element.attr('data-o-top')
+
+                element.css({
+                    "width" : original_width,
+                    "left" : original_left + "px",
+                    "top" : original_top + "px"
+                })
+                 $('.awselect_bg').removeClass('animate')
+                setTimeout(function(){
+                    $('.awselect_placebo').remove()
+                    setTimeout(function(){ 
+                        $('.awselect_bg').removeClass('animate').remove()
+                    }, 200);
+                    element.attr('style', '')
+                }, 200)
+            }, 100)
+            
+        }
+        
+
+    }
+
     function switchPlaceholderColor(element) {
         var placeholder_inactive_color = element.find(".front_face .content").attr("data-inactive-color");
         var placeholder_normal_color = element.find(".front_face .content").css("color");
@@ -166,12 +259,12 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
     }
     function setValue(select) {
         var val = $(select).val();
-        var euler_awselect = getawselectElement($(select));
+        var awselect = getawselectElement($(select));
         var option_value = $(select).children('option[value="' + val + '"]').eq(0);
         var callback = $(select).attr("data-callback");
-        $(euler_awselect).find(".current_value").remove();
-        $(euler_awselect).find(".front_face .content").prepend('<span class = "current_value">' + option_value.text() + "</span>");
-        $(euler_awselect).addClass("hasValue");
+        $(awselect).find(".current_value").remove();
+        $(awselect).find(".front_face .content").prepend('<span class = "current_value">' + option_value.text() + "</span>");
+        $(awselect).addClass("hasValue");
         if (typeof callback !== typeof undefined && callback !== false) {
             window[callback](option_value.val());
         }
@@ -187,12 +280,19 @@ awselect_count = 0; // used for generating sequential ID for <select> that does 
     }
 })(jQuery);
 
+
 $(document).ready(function() {
-    $("body").on("click", ".awselect", function() {
-        if ($(this).hasClass("animate") == false) {
-            $("select#" + $(this).attr("id").replace("euler_", "")).trigger("click");
+    $("body").on("click", ".awselect .front_face", function() {
+        var dropdown = $(this).parent('.awselect');
+        if ( dropdown.hasClass("animate") == false) {
+            $("select#" + dropdown.attr("id").replace("awselect_", "")).trigger("aw:animate");
+        } else {
+             $("select#" + dropdown.attr("id").replace("awselect_", "")).trigger("aw:deanimate");
         }
     });
+
+
+
     $("body").on("click", ".awselect ul li a", function() {
         var awselect = $(this).parents(".awselect");
         var value_index = $(this).parent("li").index();
