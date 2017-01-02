@@ -17,7 +17,6 @@ v0.1.0 beta | Initial beta release
 
 Special thanks to:
 - Entypo for the chevron icon used in AwesomeSelect
-- Zurb Foundation, Font-Awesome and Prism for the assets used in the demo
 
 
 Feel free to fork it, and contribute to make AwesomeSelect even better!
