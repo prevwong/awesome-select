@@ -9,7 +9,7 @@ Documentation and Demos are [here](https://prevwong.github.io/awesome-select/)
 
 ## Source
 
-You're currently visiting the gh-pages branch used for the demo, look at [here](https://prevwong.github.io/awesome-select/) for the actual source code and history logs.
+You're currently visiting the gh-pages branch used for the demo, look at [here](https://github.com/prevwong/awesome-select/) for the actual source code and history logs.
 
 
 ## Credits
