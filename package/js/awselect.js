@@ -50,7 +50,8 @@ var mobile_width = 800;
         placeholder_active_color: "#000",
         option_color: "#000",
         vertical_padding: "15px",
-        horizontal_padding: "40px"
+        horizontal_padding: "40px",
+        fullscreen: false,
     };
     function getawselectElement(select) {
         return $('.awselect[data-select="' + select.attr("id") + '"]');
@@ -69,6 +70,11 @@ var mobile_width = 800;
         var option_color = opts["option_color"];
         var vertical_padding = opts["vertical_padding"];
         var horizontal_padding = opts["horizontal_padding"];
+        var fullscreen = opts["fullscreen"];
+        if ( fullscreen !== true ) {
+            var fullscreen = false;
+        }
+
         options.each(function() {
             if (typeof $(this).attr("selected") !== typeof undefined && $(this).attr("selected") !== false) {
                 selected = $(this).text();
@@ -84,7 +90,7 @@ var mobile_width = 800;
             id_html = "awselect_" + awselect_count;
             $(element).attr("id", id_html);
         }
-        var awselect_html = '<div id="awselect_' + id_html + '" data-select="' + id_html + '" class = "' + classes + '"><div style="background:' + active_background + '" class = "bg"></div>';
+        var awselect_html = '<div data-fullscreen="'+ fullscreen +'" id="awselect_' + id_html + '" data-select="' + id_html + '" class = "' + classes + '"><div style="background:' + active_background + '" class = "bg"></div>';
         awselect_html += '<div style="padding:' + vertical_padding + " " + horizontal_padding + '" class = "front_face">';
         awselect_html += '<div style="background:' + background + '" class = "bg"></div>';
         awselect_html += '<div data-inactive-color="' + placeholder_active_color + '" style="color:' + placeholder_color + '" class = "content">';
@@ -100,7 +106,7 @@ var mobile_width = 800;
         awselect_html += "</ul></div>";
         awselect_html += "</div>";
         $(awselect_html).insertAfter(element);
-        element.hide();
+       element.hide();
     }
 
     function animate(element) {
@@ -112,8 +118,10 @@ var mobile_width = 800;
             } else {
                 var timeout = 100;
             }
-            if ($(window).width() < mobile_width ) {
-                mobile_animate(element);
+            var fullscreen = element.attr('data-fullscreen')
+            
+            if ($(window).width() < mobile_width || fullscreen == "true" ) {
+                fullscreen_animate(element);
                 timeout += 200
             }
             setTimeout(function() {
@@ -126,11 +134,12 @@ var mobile_width = 800;
                 back_face.css({
                     "margin-top": $(element).outerHeight()
                 });
-                if ( $(window).width() < mobile_width ) {
-                        element.css({
-                            "top": parseInt(element.css('top')) - back_face.height()
-                        })
-                    }
+                
+                if ( $(window).width() < mobile_width || fullscreen === "true" ) {
+                    element.css({
+                        "top": parseInt(element.css('top')) - back_face.height()
+                    })
+                }
                 element.addClass("placeholder_animate");
                 setTimeout(function() {
                     switchPlaceholderColor(element);
@@ -150,7 +159,7 @@ var mobile_width = 800;
         }
     }
 
-    function mobile_animate(element) {
+    function fullscreen_animate(element) {
         $(".awselect_bg").remove()
         $('body').prepend('<div class = "awselect_bg"></div>')
         setTimeout(function(){
@@ -178,10 +187,16 @@ var mobile_width = 800;
             })
             element.removeClass('transition_paused')
             setTimeout(function(){
-                element.css('width', $(window).outerWidth() - 40)
+                if ( $(window).width() < mobile_width ) {
+                     element.css('width', $(window).outerWidth() - 40 )
+                } else {
+                     element.css('width', $(window).outerWidth() / 2)
+                }
+               
                 element.css({
                     "top" : $(window).outerHeight() / 2 + element.outerHeight() / 2,
-                    "left" : 20
+                    "left" : "50%",
+                    "transform": "translateX(-50%) translateY(-50%)"
                 })
                 setTimeout(function(){
                     animate(element)
@@ -214,13 +229,13 @@ var mobile_width = 800;
                 });
                 element.removeClass("placeholder_animate2");
                 setTimeout(function() {
-                    mobile_deanimate(element)
+                    fullscreen_deanimate(element)
                     element.removeClass("placeholder_animate");
                 }, 100);
             }
         });
     }
-    function mobile_deanimate(element){
+    function fullscreen_deanimate(element){
        
         if ( element.siblings('.awselect_placebo').length > 0 ) {
            
@@ -233,6 +248,7 @@ var mobile_width = 800;
                 element.css({
                     "width" : original_width,
                     "left" : original_left + "px",
+                    "transform": "translateX(0) translateY(0)",
                     "top" : original_top + "px"
                 })
                  $('.awselect_bg').removeClass('animate')
@@ -242,7 +258,7 @@ var mobile_width = 800;
                         $('.awselect_bg').removeClass('animate').remove()
                     }, 200);
                     element.attr('style', '')
-                }, 200)
+                }, 300)
             }, 100)
             
         }
@@ -284,19 +300,21 @@ var mobile_width = 800;
 $(document).ready(function() {
     $("body").on("click", ".awselect .front_face", function() {
         var dropdown = $(this).parent('.awselect');
+       
         if ( dropdown.hasClass("animate") == false) {
             $("select#" + dropdown.attr("id").replace("awselect_", "")).trigger("aw:animate");
         } else {
              $("select#" + dropdown.attr("id").replace("awselect_", "")).trigger("aw:deanimate");
         }
+        
     });
 
 
 
     $("body").on("click", ".awselect ul li a", function() {
-        var awselect = $(this).parents(".awselect");
+        var dropdown = $(this).parents(".awselect");
         var value_index = $(this).parent("li").index();
-        var id = awselect.attr("data-select");
+        var id = dropdown.attr("data-select");
         var select = $("select#" + id);
         var option_value = $(select).children("option").eq(value_index);
         var callback = $(select).attr("data-callback");
