@@ -6,6 +6,9 @@ Documentation: https://prevwong.github.io/awesome-select/
 Github: https://github.com/prevwong/awesome-select/
 
 **/
+.fullscreen_awselect {
+  overflow: hidden !important; }
+
 .awselect_bg {
   position: fixed;
   z-index: 999;

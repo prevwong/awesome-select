@@ -10,7 +10,7 @@ Documentation and Demos are [here](https://prevwong.github.io/awesome-select/)
 
 Release | Description
 ------------ | -------------
-v0.1.1 beta | Added mobile animations
+v0.1.1 beta | Added fullscreen(and mobile) animations
 v0.1.0 beta | Initial beta release
 
 ## Credits

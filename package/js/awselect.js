@@ -161,6 +161,7 @@ var mobile_width = 800;
 
     function fullscreen_animate(element) {
         $(".awselect_bg").remove()
+        $('body, html').addClass('fullscreen_awselect')
         $('body').prepend('<div class = "awselect_bg"></div>')
         setTimeout(function(){
              $('.awselect_bg').addClass('animate')
@@ -254,6 +255,7 @@ var mobile_width = 800;
                  $('.awselect_bg').removeClass('animate')
                 setTimeout(function(){
                     $('.awselect_placebo').remove()
+                    $('body, html').removeClass('fullscreen_awselect')
                     setTimeout(function(){ 
                         $('.awselect_bg').removeClass('animate').remove()
                     }, 200);

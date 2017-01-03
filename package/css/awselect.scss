@@ -27,6 +27,10 @@ transition: 0.2s ease-in;
 }
 
 
+.fullscreen_awselect {
+  overflow: hidden !important; 
+}
+
 .awselect_bg {
 	position:fixed;
 	z-index:999;
