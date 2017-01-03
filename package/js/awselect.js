@@ -121,7 +121,7 @@ var mobile_width = 800;
             var immersive = element.attr('data-immersive')
             
             if ($(window).width() < mobile_width || immersive == "true" ) {
-                immmersive_animate(element);
+                immersive_animate(element);
                 timeout += 200
             }
             setTimeout(function() {
