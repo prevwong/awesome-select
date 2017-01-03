@@ -22,7 +22,6 @@
 
             $('select#hero_select').awselect({
                 vertical_padding: "10px",
-                fullscreen: true
             })
 
             $('#myblue_dropdown').awselect({
@@ -33,6 +32,17 @@
                 option_color: "#405463",
                 vertical_padding: "15px",
                 horizontal_padding: "20px"
+            })
+
+            $('#fullscreen_dropdown').awselect({
+                background: "#1d456f",
+                active_background: "rgb(135, 142, 144)",
+                placeholder_color: "rgb(169, 232, 169)",
+                placeholder_active_color: "rgb(169, 232, 169)",
+                option_color: "#fff",
+                vertical_padding: "15px",
+                horizontal_padding: "20px",
+                fullscreen: true
             })
             $('#donate').on('click', function() {
                 $('#paypal_donate').submit()
@@ -170,7 +180,8 @@
 		placeholder_active_color: "#0f37a9", // the dark blue placeholder color
 		option_color:"#405463", // the option colors
 		vertical_padding: "15px", //top and bottom padding
-		horizontal_padding: "20px" // left and right padding
+		horizontal_padding: "20px" // left and right padding,
+        fullscreen: false // fullscreen option, demonstrated at the next example
 	});
 });</code></pre>
                             </li>
@@ -185,6 +196,8 @@
 							<option value="3">Unicorn</option>
 						</select>
                         </div>
+
+
 
                         <table>
                             <thead>
@@ -257,9 +270,45 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>fullscreen</td>
+                                    <td>
+                                        Fullscreen option for immersive dropdown
+                                        <div class="code">
+                                            <span>Default: false</span>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
 
+                    </div>
+                </div>
+                 <div class="sections" id="init">
+                    <h2>Fullscreen Animation</h2>
+                    <p>Perhaps you may want to make your dropdown more immersive for your users, then you might want to checkout the <span class='code'>fullscreen</span> option</p>
+                    <div class="steps">
+                        <ol>
+                            <li>
+                                <span class="step_name">Set the <span class = "code">fullscreen</span> option to true</span>
+                                <pre><code class="language-javascript">$(document).ready(function(){
+     $('#fullscreen_dropdown').awselect({
+        ...
+        fullscreen: true // add this option
+    });
+});</code></pre>
+                            </li>
+
+                        </ol>
+                        <div class="output">
+                            <span>Output</span>
+                            <select id="fullscreen_dropdown" data-placeholder="Dramatic Dropdown">
+                            <option value="dramatic">Dramatic</option>
+                            <option value="very_dramatic">Very Dramatic</option>
+                            <option value="out_world">Out of this world</option>
+                        </select>
+                        </div>
+                        <p class = "note">** As of this update, fullscreen animation is the animation that would be used if the display device is below 800px (mobile devices) regardless if the option value is <span class = "code">false</span></p>
                     </div>
                 </div>
                 <div class="sections" id="init">
@@ -274,7 +323,7 @@
                             </li>
                             <li>
                                 <span class="step_name">The callback function should be placed outside <span class = "code">$(document).ready()</span>. The function can also access the <span class="code">value</span> that was chosen by the user.</span>
-                                <pre><code class="language-javascript">$(document).ready(function(){
+                                 <pre><code class="language-javascript">$(document).ready(function(){
    ...
 })
 
@@ -294,10 +343,7 @@ function my_callback(value){
                         </div>
                     </div>
                 </div>
-                <div class="sections" id="init">
-                    <h2>Mobile Animation</h2>
-                    <p>In attempt to make the animations to appear more immersive on smaller screens, awesome-select will animate slightly different on screens with width smaller than 800px. If you are not already on a mobile device, you can resize your browser to a width lesser or equal to 800px and test the dropdowns in the above examples to see the difference.</p>
-                </div>
+               
             </div>
             <footer class="columns medium-12">
                 <p>
