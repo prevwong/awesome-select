@@ -34,7 +34,7 @@
                 horizontal_padding: "20px"
             })
 
-            $('#fullscreen_dropdown').awselect({
+            $('#immersive_dropdown').awselect({
                 background: "#1d456f",
                 active_background: "rgb(135, 142, 144)",
                 placeholder_color: "rgb(169, 232, 169)",
@@ -42,7 +42,7 @@
                 option_color: "#fff",
                 vertical_padding: "15px",
                 horizontal_padding: "20px",
-                fullscreen: true
+                immersive: true
             })
             $('#donate').on('click', function() {
                 $('#paypal_donate').submit()
@@ -271,9 +271,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>fullscreen</td>
+                                    <td>immersive</td>
                                     <td>
-                                        Fullscreen option for immersive dropdown
+                                        Immersive mode 
                                         <div class="code">
                                             <span>Default: false</span>
                                         </div>
@@ -285,16 +285,16 @@
                     </div>
                 </div>
                  <div class="sections" id="init">
-                    <h2>Fullscreen Animation</h2>
-                    <p>Perhaps you may want to make your dropdown more immersive for your users, then you might want to checkout the <span class='code'>fullscreen</span> option</p>
+                    <h2>Immersive Mode</h2>
+                    <p>Perhaps you may want to make your dropdown more immersive for your users, then you might want to checkout the <span class='code'>immersive</span> option</p>
                     <div class="steps">
                         <ol>
                             <li>
-                                <span class="step_name">Set the <span class = "code">fullscreen</span> option to true</span>
+                                <span class="step_name">Set the <span class = "code">immersive</span> option to true</span>
                                 <pre><code class="language-javascript">$(document).ready(function(){
-     $('#fullscreen_dropdown').awselect({
+     $('#immersive_dropdown').awselect({
         ...
-        fullscreen: true // add this option
+        immersive: true // add this option
     });
 });</code></pre>
                             </li>
