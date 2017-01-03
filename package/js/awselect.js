@@ -51,7 +51,7 @@ var mobile_width = 800;
         option_color: "#000",
         vertical_padding: "15px",
         horizontal_padding: "40px",
-        fullscreen: false,
+        immersive: false,
     };
     function getawselectElement(select) {
         return $('.awselect[data-select="' + select.attr("id") + '"]');
@@ -70,9 +70,9 @@ var mobile_width = 800;
         var option_color = opts["option_color"];
         var vertical_padding = opts["vertical_padding"];
         var horizontal_padding = opts["horizontal_padding"];
-        var fullscreen = opts["fullscreen"];
-        if ( fullscreen !== true ) {
-            var fullscreen = false;
+        var immersive = opts["immersive"];
+        if ( immersive !== true ) {
+            var immersive = false;
         }
 
         options.each(function() {
@@ -90,7 +90,7 @@ var mobile_width = 800;
             id_html = "awselect_" + awselect_count;
             $(element).attr("id", id_html);
         }
-        var awselect_html = '<div data-fullscreen="'+ fullscreen +'" id="awselect_' + id_html + '" data-select="' + id_html + '" class = "' + classes + '"><div style="background:' + active_background + '" class = "bg"></div>';
+        var awselect_html = '<div data-immersive="'+ immersive +'" id="awselect_' + id_html + '" data-select="' + id_html + '" class = "' + classes + '"><div style="background:' + active_background + '" class = "bg"></div>';
         awselect_html += '<div style="padding:' + vertical_padding + " " + horizontal_padding + '" class = "front_face">';
         awselect_html += '<div style="background:' + background + '" class = "bg"></div>';
         awselect_html += '<div data-inactive-color="' + placeholder_active_color + '" style="color:' + placeholder_color + '" class = "content">';
@@ -118,10 +118,10 @@ var mobile_width = 800;
             } else {
                 var timeout = 100;
             }
-            var fullscreen = element.attr('data-fullscreen')
+            var immersive = element.attr('data-immersive')
             
-            if ($(window).width() < mobile_width || fullscreen == "true" ) {
-                fullscreen_animate(element);
+            if ($(window).width() < mobile_width || immersive == "true" ) {
+                immmersive_animate(element);
                 timeout += 200
             }
             setTimeout(function() {
@@ -135,7 +135,7 @@ var mobile_width = 800;
                     "margin-top": $(element).outerHeight()
                 });
                 
-                if ( $(window).width() < mobile_width || fullscreen === "true" ) {
+                if ( $(window).width() < mobile_width || immersive === "true" ) {
                     element.css({
                         "top": parseInt(element.css('top')) - back_face.height()
                     })
@@ -159,9 +159,9 @@ var mobile_width = 800;
         }
     }
 
-    function fullscreen_animate(element) {
+    function immersive_animate(element) {
         $(".awselect_bg").remove()
-        $('body, html').addClass('fullscreen_awselect')
+        $('body, html').addClass('immersive_awselect')
         $('body').prepend('<div class = "awselect_bg"></div>')
         setTimeout(function(){
              $('.awselect_bg').addClass('animate')
@@ -230,13 +230,13 @@ var mobile_width = 800;
                 });
                 element.removeClass("placeholder_animate2");
                 setTimeout(function() {
-                    fullscreen_deanimate(element)
+                    immersive_deanimate(element)
                     element.removeClass("placeholder_animate");
                 }, 100);
             }
         });
     }
-    function fullscreen_deanimate(element){
+    function immersive_deanimate(element){
        
         if ( element.siblings('.awselect_placebo').length > 0 ) {
            
@@ -255,7 +255,7 @@ var mobile_width = 800;
                  $('.awselect_bg').removeClass('animate')
                 setTimeout(function(){
                     $('.awselect_placebo').remove()
-                    $('body, html').removeClass('fullscreen_awselect')
+                    $('body, html').removeClass('immersive_awselect')
                     setTimeout(function(){ 
                         $('.awselect_bg').removeClass('animate').remove()
                     }, 200);
