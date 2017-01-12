@@ -181,7 +181,7 @@
 		option_color:"#405463", // the option colors
 		vertical_padding: "15px", //top and bottom padding
 		horizontal_padding: "20px" // left and right padding,
-        immersive: false // immersive option, demonstrated at the next example
+        fullscreen: false // fullscreen option, demonstrated at the next example
 	});
 });</code></pre>
                             </li>
