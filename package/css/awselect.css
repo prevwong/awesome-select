@@ -74,7 +74,8 @@ Github: https://github.com/prevwong/awesome-select/
       width: 100%;
       color: inherit; }
     .awselect .front_face .current_value {
-      position: absolute; }
+      position: absolute;
+      left: 0; }
     .awselect .front_face .placeholder {
       position: relative; }
     .awselect .front_face .icon {
