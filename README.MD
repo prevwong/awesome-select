@@ -1,4 +1,5 @@
 # AwesomeSelect
+[![Support](https://supporterhq.com/api/b/9okwcyts1gevgy53glt8ffpyc)](https://supporterhq.com/give/9okwcyts1gevgy53glt8ffpyc)
 
 Transform that boring &lt;select&gt; tag into something beautiful and minimal, with animations inspired from Material Design.
 
